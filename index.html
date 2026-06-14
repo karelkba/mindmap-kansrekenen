@@ -6,107 +6,48 @@
 <title>Mindmap Kansrekenen</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background: #0f1117;
-    color: #e8e6f0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  h1 {
-    text-align: center;
-    font-size: 1.1rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    color: #9b91d4;
-    padding: 18px 0 10px;
-    text-transform: uppercase;
-  }
-  .layout {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
-    height: calc(100vh - 56px);
-  }
-  .map-area {
-    flex: 1;
-    overflow: auto;
-    padding: 20px;
-  }
-  svg#mindmap {
-    width: 100%;
-    min-width: 700px;
-    height: auto;
-    display: block;
-  }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f1117; color: #e8e6f0; min-height: 100vh; display: flex; flex-direction: column; }
+  h1 { text-align: center; font-size: 1.1rem; font-weight: 500; letter-spacing: 0.08em; color: #9b91d4; padding: 18px 0 10px; text-transform: uppercase; }
+  .layout { display: flex; flex: 1; overflow: hidden; height: calc(100vh - 56px); }
+  .map-area { flex: 1; overflow: auto; padding: 20px; }
+  svg#mindmap { width: 100%; min-width: 700px; height: auto; display: block; }
   .node-group { cursor: pointer; }
   .node-group rect { transition: filter 0.15s; }
-  .node-group:hover rect { filter: brightness(1.25); }
-  .node-group.active rect { filter: brightness(1.4) drop-shadow(0 0 6px #7F77DD); }
-
-  .panel {
-    width: 360px;
-    min-width: 280px;
-    background: #16181f;
-    border-left: 1px solid #2a2d3a;
-    display: flex;
-    flex-direction: column;
-    transition: width 0.3s;
-  }
+  .node-group:hover rect { filter: brightness(1.3); }
+  .node-group.active rect { filter: brightness(1.5) drop-shadow(0 0 8px rgba(127,119,221,0.6)); }
+  .panel { width: 400px; min-width: 300px; background: #16181f; border-left: 1px solid #2a2d3a; display: flex; flex-direction: column; transition: width 0.3s; }
   .panel.collapsed { width: 0; min-width: 0; overflow: hidden; border: none; }
-  .panel-header {
-    padding: 16px 18px 12px;
-    border-bottom: 1px solid #2a2d3a;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+  .panel-header { padding: 16px 18px 12px; border-bottom: 1px solid #2a2d3a; display: flex; align-items: center; gap: 10px; }
   .panel-topic { font-size: 1rem; font-weight: 600; flex: 1; color: #e8e6f0; }
-  .panel-close {
-    background: none; border: none; color: #666;
-    cursor: pointer; font-size: 1.2rem; padding: 2px 6px; border-radius: 4px;
-  }
+  .panel-close { background: none; border: none; color: #666; cursor: pointer; font-size: 1.2rem; padding: 2px 8px; border-radius: 4px; }
   .panel-close:hover { background: #2a2d3a; color: #e8e6f0; }
-  .panel-body {
-    flex: 1; overflow-y: auto; padding: 18px;
-    font-size: 0.92rem; line-height: 1.7; color: #c8c4dc;
-  }
+  .panel-body { flex: 1; overflow-y: auto; padding: 20px; font-size: 0.91rem; line-height: 1.75; color: #c8c4dc; }
+  .panel-body h3 { color: #9b91d4; font-size: 0.95rem; font-weight: 600; margin: 18px 0 8px; }
+  .panel-body h3:first-child { margin-top: 0; }
   .panel-body p { margin-bottom: 10px; }
   .panel-body strong { color: #e8e6f0; font-weight: 600; }
-  .panel-body code {
-    background: #1e2130; border: 1px solid #2a2d3a; border-radius: 4px;
-    padding: 2px 6px; font-family: 'Courier New', monospace;
-    font-size: 0.85rem; color: #a8d8a8;
-  }
-  .loading { display: flex; align-items: center; gap: 10px; color: #666; font-size: 0.9rem; padding: 8px 0; }
-  .dot-anim span {
-    display: inline-block; width: 6px; height: 6px;
-    background: #7F77DD; border-radius: 50%;
-    animation: bounce 1.2s infinite ease-in-out; margin: 0 2px;
-  }
-  .dot-anim span:nth-child(2) { animation-delay: 0.2s; }
-  .dot-anim span:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes bounce { 0%,80%,100%{transform:scale(0.6)} 40%{transform:scale(1)} }
-  .error-msg { color: #e06c75; font-size: 0.88rem; }
-  ::-webkit-scrollbar { width: 6px; }
+  .panel-body em { color: #b0a8d8; font-style: italic; }
+  .panel-body code { background: #1e2130; border: 1px solid #2a2d3a; border-radius: 4px; padding: 2px 7px; font-family: 'Courier New', monospace; font-size: 0.88rem; color: #a8d8a8; }
+  .panel-body pre { background: #1a1d28; border: 1px solid #2a2d3a; border-radius: 8px; padding: 14px 16px; margin: 12px 0; overflow-x: auto; }
+  .panel-body pre code { background: none; border: none; padding: 0; color: #a8d8a8; font-size: 0.87rem; }
+  .panel-body blockquote { border-left: 3px solid #3d3489; margin: 12px 0; padding: 8px 14px; background: #141620; border-radius: 0 6px 6px 0; color: #b0a8d8; font-size: 0.88rem; }
+  .panel-body table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.86rem; }
+  .panel-body th { background: #1e2130; color: #9b91d4; padding: 7px 10px; text-align: left; border: 1px solid #2a2d3a; }
+  .panel-body td { padding: 6px 10px; border: 1px solid #2a2d3a; color: #c0bcd8; }
+  .panel-body td:first-child { color: #e8e6f0; }
+  .panel-body ul { padding-left: 18px; margin: 8px 0; }
+  .panel-body li { margin-bottom: 4px; }
+  .hint { text-align: center; color: #2a2d3a; font-size: 11px; margin-top: 8px; }
+  ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-thumb { background: #2a2d3a; border-radius: 3px; }
 </style>
 </head>
 <body>
-
 <h1>Basiscursus Kansrekenen</h1>
-
 <div class="layout">
   <div class="map-area">
     <svg id="mindmap" viewBox="0 0 780 880" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-          <path d="M2 1L8 5L2 9" fill="none" stroke="#444" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </marker>
-      </defs>
-
-      <!-- Connector lines -->
+      <!-- connector lines -->
       <line x1="310" y1="416" x2="175" y2="316" stroke="#2a2d3a" stroke-width="1.5" fill="none"/>
       <line x1="470" y1="416" x2="600" y2="316" stroke="#2a2d3a" stroke-width="1.5" fill="none"/>
       <line x1="390" y1="395" x2="390" y2="306" stroke="#2a2d3a" stroke-width="1.5" fill="none"/>
@@ -136,132 +77,125 @@
       <line x1="610" y1="598" x2="576" y2="660" stroke="#36142a" stroke-width="1" fill="none"/>
 
       <!-- CENTRAL -->
-      <g class="node-group" data-topic="Kansrekenen — overzicht" data-prompt="Geef een volledig overzicht van de basiscursus kansrekenen: alle hoofdonderwerpen, kernformules en de samenhang ertussen.">
+      <g class="node-group" data-id="overzicht">
         <rect x="272" y="395" width="236" height="50" rx="14" fill="#3d3489" stroke="#7F77DD" stroke-width="1.5"/>
         <text x="390" y="420" text-anchor="middle" dominant-baseline="central" fill="#d0ccf4" font-size="15" font-weight="600">Kansrekenen</text>
       </g>
-
       <!-- BASISCONCEPTEN -->
-      <g class="node-group" data-topic="Basisconcepten" data-prompt="Leg de basisconcepten van kansrekenen uit: uitkomstenruimte, gebeurtenis en de klassieke kansformule. Geef duidelijke voorbeelden.">
+      <g class="node-group" data-id="basis">
         <rect x="50" y="268" width="172" height="44" rx="10" fill="#0e2e28" stroke="#1D9E75" stroke-width="1"/>
         <text x="136" y="290" text-anchor="middle" dominant-baseline="central" fill="#7fcfb0" font-size="13" font-weight="500">Basisconcepten</text>
       </g>
-      <g class="node-group" data-topic="Uitkomstenruimte Ω" data-prompt="Wat is een uitkomstenruimte in kansrekenen? Leg het uit met voorbeelden zoals een dobbelsteen en een munt.">
+      <g class="node-group" data-id="uitkomstenruimte">
         <rect x="28" y="218" width="126" height="32" rx="7" fill="#0a2420" stroke="#1D9E75" stroke-width="0.8"/>
         <text x="91" y="234" text-anchor="middle" dominant-baseline="central" fill="#5db896" font-size="11.5">Uitkomstenruimte Ω</text>
       </g>
-      <g class="node-group" data-topic="Gebeurtenis A" data-prompt="Wat is een kansgebeurtenis? Leg uit wat een deelverzameling van de uitkomstenruimte is, met voorbeelden.">
+      <g class="node-group" data-id="gebeurtenis">
         <rect x="130" y="218" width="100" height="32" rx="7" fill="#0a2420" stroke="#1D9E75" stroke-width="0.8"/>
         <text x="180" y="234" text-anchor="middle" dominant-baseline="central" fill="#5db896" font-size="11.5">Gebeurtenis A</text>
       </g>
-      <g class="node-group" data-topic="Klassieke kansformule" data-prompt="Wat is de klassieke kansformule P(A) = gunstig/totaal? Wanneer mag je deze gebruiken en wanneer niet?">
+      <g class="node-group" data-id="klassiek">
         <rect x="32" y="360" width="168" height="32" rx="7" fill="#0a2420" stroke="#1D9E75" stroke-width="0.8"/>
         <text x="116" y="376" text-anchor="middle" dominant-baseline="central" fill="#5db896" font-size="11.5">P(A) = gunstig / totaal</text>
       </g>
-
       <!-- REKENWETTEN -->
-      <g class="node-group" data-topic="Rekenwetten" data-prompt="Leg de rekenwetten van kansen uit: de complementregel, de optellingsregel voor mutueel uitsluitende en voor algemene gebeurtenissen.">
+      <g class="node-group" data-id="rekenwetten">
         <rect x="504" y="268" width="188" height="44" rx="10" fill="#2e1208" stroke="#D85A30" stroke-width="1"/>
         <text x="598" y="290" text-anchor="middle" dominant-baseline="central" fill="#e89070" font-size="13" font-weight="500">Rekenwetten</text>
       </g>
-      <g class="node-group" data-topic="Complementregel" data-prompt="Wat is de complementregel in kansrekenen? P(Aᶜ) = 1 − P(A). Geef een voorbeeld.">
+      <g class="node-group" data-id="complement">
         <rect x="492" y="218" width="122" height="32" rx="7" fill="#281008" stroke="#D85A30" stroke-width="0.8"/>
         <text x="553" y="234" text-anchor="middle" dominant-baseline="central" fill="#c4724a" font-size="11.5">Complementregel</text>
       </g>
-      <g class="node-group" data-topic="Optellingsregel" data-prompt="Wat is de optellingsregel voor kansen? Leg het verschil uit tussen de formule voor mutueel uitsluitende en voor overlappende gebeurtenissen.">
+      <g class="node-group" data-id="optelling">
         <rect x="608" y="218" width="122" height="32" rx="7" fill="#281008" stroke="#D85A30" stroke-width="0.8"/>
         <text x="669" y="234" text-anchor="middle" dominant-baseline="central" fill="#c4724a" font-size="11.5">Optellingsregel</text>
       </g>
-      <g class="node-group" data-topic="Uitsluitend vs. algemeen" data-prompt="Wat is het verschil tussen mutueel uitsluitende en overlappende gebeurtenissen? Wanneer gebruik je P(A∪B) = P(A)+P(B) versus P(A)+P(B)−P(A∩B)?">
+      <g class="node-group" data-id="uitsluitend">
         <rect x="524" y="360" width="156" height="32" rx="7" fill="#281008" stroke="#D85A30" stroke-width="0.8"/>
         <text x="602" y="376" text-anchor="middle" dominant-baseline="central" fill="#c4724a" font-size="11.5">Uitsluitend vs. algemeen</text>
       </g>
-
-      <!-- BIJZONDERE VRAAGSTUKKEN -->
-      <g class="node-group" data-topic="Bijzondere vraagstukken" data-prompt="Leg de bijzondere kansvraagstukken uit: het verjaardagsprobleem, de binomiale verdeling en de binomiale stelling.">
+      <!-- BIJZONDERE -->
+      <g class="node-group" data-id="bijzonder">
         <rect x="266" y="268" width="248" height="44" rx="10" fill="#132510" stroke="#639922" stroke-width="1"/>
         <text x="390" y="290" text-anchor="middle" dominant-baseline="central" fill="#8dc456" font-size="13" font-weight="500">Bijzondere vraagstukken</text>
       </g>
-      <g class="node-group" data-topic="Verjaardagsprobleem" data-prompt="Leg het verjaardagsprobleem uit. Waarom is bij slechts 23 personen de kans op een gedeelde verjaardag al groter dan 50%? Laat de berekening zien.">
+      <g class="node-group" data-id="verjaardag">
         <rect x="192" y="198" width="164" height="32" rx="7" fill="#0d1e0a" stroke="#639922" stroke-width="0.8"/>
         <text x="274" y="214" text-anchor="middle" dominant-baseline="central" fill="#6aaa2a" font-size="11.5">Verjaardagsprobleem</text>
       </g>
-      <g class="node-group" data-topic="Binomiale verdeling" data-prompt="Wat is de binomiale verdeling? Leg de formule P(k) = C(n,k)·pᵏ·(1−p)ⁿ⁻ᵏ uit met een concreet voorbeeld.">
+      <g class="node-group" data-id="binomiaal">
         <rect x="392" y="198" width="152" height="32" rx="7" fill="#0d1e0a" stroke="#639922" stroke-width="0.8"/>
         <text x="468" y="214" text-anchor="middle" dominant-baseline="central" fill="#6aaa2a" font-size="11.5">Binomiale verdeling</text>
       </g>
-      <g class="node-group" data-topic="Binomiale stelling (a+b)ⁿ" data-prompt="Wat is de binomiale stelling? Leg uit hoe (a+b)ⁿ wordt uitgeschreven met binomiaalcoëfficiënten, en geef een voorbeeld voor n=3.">
+      <g class="node-group" data-id="binstelling">
         <rect x="290" y="148" width="200" height="32" rx="7" fill="#0d1e0a" stroke="#639922" stroke-width="0.8"/>
         <text x="390" y="164" text-anchor="middle" dominant-baseline="central" fill="#6aaa2a" font-size="11.5">Binomiale stelling (a+b)ⁿ</text>
       </g>
-
       <!-- COMBINATORIEK -->
-      <g class="node-group" data-topic="Combinatoriek" data-prompt="Geef een volledig overzicht van de combinatoriek: telprincipe, faculteit, variaties, permutaties, combinaties (met en zonder herhaling) en de driehoek van Pascal.">
+      <g class="node-group" data-id="combinatoriek">
         <rect x="44" y="548" width="208" height="44" rx="10" fill="#2d2108" stroke="#BA7517" stroke-width="1"/>
         <text x="148" y="570" text-anchor="middle" dominant-baseline="central" fill="#d4a050" font-size="13" font-weight="500">Combinatoriek</text>
       </g>
-      <g class="node-group" data-topic="Faculteit n!" data-prompt="Wat is de faculteit in de wiskunde? Leg n! uit met voorbeelden en verklaar waarom 0! = 1.">
+      <g class="node-group" data-id="faculteit">
         <rect x="22" y="610" width="82" height="32" rx="7" fill="#261a06" stroke="#BA7517" stroke-width="0.8"/>
         <text x="63" y="626" text-anchor="middle" dominant-baseline="central" fill="#b07828" font-size="11.5">Faculteit n!</text>
       </g>
-      <g class="node-group" data-topic="Variaties V(n,k)" data-prompt="Wat zijn variaties in de combinatoriek? Leg het verschil uit tussen variaties V(n,k) en permutaties P(n), met voorbeelden.">
+      <g class="node-group" data-id="variaties">
         <rect x="106" y="610" width="88" height="32" rx="7" fill="#261a06" stroke="#BA7517" stroke-width="0.8"/>
         <text x="150" y="626" text-anchor="middle" dominant-baseline="central" fill="#b07828" font-size="11.5">Variaties V(n,k)</text>
       </g>
-      <g class="node-group" data-topic="Permutaties P(n)" data-prompt="Wat zijn permutaties? Hoe verschilt P(n) = n! van een variatie? Wanneer gebruik je herhaling en wanneer niet?">
+      <g class="node-group" data-id="permutaties">
         <rect x="192" y="610" width="90" height="32" rx="7" fill="#261a06" stroke="#BA7517" stroke-width="0.8"/>
         <text x="237" y="626" text-anchor="middle" dominant-baseline="central" fill="#b07828" font-size="11.5">Permutaties P(n)</text>
       </g>
-      <g class="node-group" data-topic="Combinaties C(n,k)" data-prompt="Wat zijn combinaties C(n,k)? Leg de formule uit en geef een voorbeeld. Wat is het verschil met variaties?">
+      <g class="node-group" data-id="combinaties">
         <rect x="22" y="660" width="112" height="32" rx="7" fill="#261a06" stroke="#BA7517" stroke-width="0.8"/>
         <text x="78" y="676" text-anchor="middle" dominant-baseline="central" fill="#b07828" font-size="11.5">Combinaties C(n,k)</text>
       </g>
-      <g class="node-group" data-topic="Combinaties met herhaling" data-prompt="Wat zijn combinaties met herhaling? Leg de formule C_h(n,k) = C(n+k−1, k) uit met het ijssalon-voorbeeld.">
+      <g class="node-group" data-id="herhaling">
         <rect x="138" y="660" width="130" height="32" rx="7" fill="#261a06" stroke="#BA7517" stroke-width="0.8"/>
         <text x="203" y="676" text-anchor="middle" dominant-baseline="central" fill="#b07828" font-size="11.5">Met herhaling C_h(n,k)</text>
       </g>
-      <g class="node-group" data-topic="Driehoek van Pascal" data-prompt="Wat is de driehoek van Pascal? Hoe lees je er combinatiegetallen uit af, en wat zijn de nuttige eigenschappen ervan?">
+      <g class="node-group" data-id="pascal">
         <rect x="60" y="710" width="178" height="32" rx="7" fill="#261a06" stroke="#BA7517" stroke-width="0.8"/>
         <text x="149" y="726" text-anchor="middle" dominant-baseline="central" fill="#b07828" font-size="11.5">Driehoek van Pascal</text>
       </g>
-
       <!-- VOORWAARDELIJKE KANS -->
-      <g class="node-group" data-topic="Voorwaardelijke kans" data-prompt="Leg voorwaardelijke kans uit: wat betekent P(A|B)? Geef de formule, een voorbeeld, en leg ook de vermenigvuldigingsregel en onafhankelijkheid uit.">
+      <g class="node-group" data-id="voorwaardelijk">
         <rect x="264" y="548" width="252" height="44" rx="10" fill="#071428" stroke="#378ADD" stroke-width="1"/>
         <text x="390" y="570" text-anchor="middle" dominant-baseline="central" fill="#60a8e0" font-size="13" font-weight="500">Voorwaardelijke kans</text>
       </g>
-      <g class="node-group" data-topic="P(A|B) = P(A∩B)/P(B)" data-prompt="Leg de formule P(A|B) = P(A∩B)/P(B) stap voor stap uit. Wat betekent de doorsnede en hoe bereken je die?">
+      <g class="node-group" data-id="formule-vk">
         <rect x="198" y="610" width="168" height="32" rx="7" fill="#051020" stroke="#378ADD" stroke-width="0.8"/>
         <text x="282" y="626" text-anchor="middle" dominant-baseline="central" fill="#4488cc" font-size="11.5">P(A|B) = P(A∩B)/P(B)</text>
       </g>
-      <g class="node-group" data-topic="Onafhankelijkheid" data-prompt="Wat zijn onafhankelijke en afhankelijke gebeurtenissen? Geef een voorbeeld van elk en leg de vermenigvuldigingsregel uit.">
+      <g class="node-group" data-id="onafhankelijk">
         <rect x="388" y="610" width="144" height="32" rx="7" fill="#051020" stroke="#378ADD" stroke-width="0.8"/>
         <text x="460" y="626" text-anchor="middle" dominant-baseline="central" fill="#4488cc" font-size="11.5">Onafhankelijkheid</text>
       </g>
-      <g class="node-group" data-topic="Wet van de totale kans" data-prompt="Wat is de wet van de totale kans? Leg de formule P(A) = Σ P(A|Bi)·P(Bi) uit met het fabrieksvoorbeeld.">
+      <g class="node-group" data-id="totale-kans">
         <rect x="196" y="660" width="228" height="32" rx="7" fill="#051020" stroke="#378ADD" stroke-width="0.8"/>
         <text x="310" y="676" text-anchor="middle" dominant-baseline="central" fill="#4488cc" font-size="11.5">Wet van de totale kans</text>
       </g>
-
-      <!-- STELLING VAN BAYES -->
-      <g class="node-group" data-topic="Stelling van Bayes" data-prompt="Leg de stelling van Bayes volledig uit: de formule, de intuïtie, een medisch voorbeeld, en waarom de basisfrequentie zo belangrijk is.">
+      <!-- BAYES -->
+      <g class="node-group" data-id="bayes">
         <rect x="494" y="548" width="208" height="44" rx="10" fill="#280d1e" stroke="#D4537E" stroke-width="1"/>
         <text x="598" y="570" text-anchor="middle" dominant-baseline="central" fill="#d470a0" font-size="13" font-weight="500">Stelling van Bayes</text>
       </g>
-      <g class="node-group" data-topic="Formule van Bayes" data-prompt="Wat is de formule P(B|A) = P(A|B)·P(B)/P(A)? Leg elke term uit en geef een stap-voor-stap berekening.">
+      <g class="node-group" data-id="formule-bayes">
         <rect x="464" y="610" width="156" height="32" rx="7" fill="#200a18" stroke="#D4537E" stroke-width="0.8"/>
         <text x="542" y="626" text-anchor="middle" dominant-baseline="central" fill="#b04878" font-size="11.5">P(B|A) = P(A|B)·P(B)/P(A)</text>
       </g>
-      <g class="node-group" data-topic="Medische test voorbeeld" data-prompt="Leg het medische testvoorbeeld van Bayes uit: ziekte met 1% basisfrequentie, test met 99% sensitiviteit en 5% vals-positief. Wat is de kans op ziekte bij een positieve test?">
+      <g class="node-group" data-id="medisch">
         <rect x="618" y="610" width="126" height="32" rx="7" fill="#200a18" stroke="#D4537E" stroke-width="0.8"/>
         <text x="681" y="626" text-anchor="middle" dominant-baseline="central" fill="#b04878" font-size="11.5">Medische test</text>
       </g>
-      <g class="node-group" data-topic="Toepassingen van Bayes" data-prompt="Wat zijn toepassingen van de stelling van Bayes in de praktijk? Denk aan spam-filters, medische diagnose, rechtbank en kunstmatige intelligentie.">
+      <g class="node-group" data-id="toepassingen">
         <rect x="494" y="660" width="162" height="32" rx="7" fill="#200a18" stroke="#D4537E" stroke-width="0.8"/>
         <text x="575" y="676" text-anchor="middle" dominant-baseline="central" fill="#b04878" font-size="11.5">Spam · AI · rechtbank</text>
       </g>
-
-      <text x="390" y="844" text-anchor="middle" fill="#333" font-size="11">Klik op een knoop voor uitleg</text>
+      <text x="390" y="844" text-anchor="middle" fill="#2a2d3a" font-size="11">Klik op een knoop voor uitleg</text>
     </svg>
   </div>
 
@@ -275,42 +209,436 @@
 </div>
 
 <script>
-const panel      = document.getElementById('panel');
+const CONTENT = {
+  overzicht: {
+    title: "Kansrekenen — overzicht",
+    html: `<h3>Wat is kansrekenen?</h3>
+<p>Kansrekenen is de wiskundige studie van toeval en onzekerheid. <strong>Kans</strong> (notatie: <em>P</em>) is altijd een getal tussen 0 en 1:</p>
+<ul>
+  <li><strong>P = 0</strong> — de gebeurtenis is onmogelijk</li>
+  <li><strong>P = 1</strong> — de gebeurtenis is zeker</li>
+  <li><strong>P = 0,5</strong> — fifty-fifty</li>
+</ul>
+<h3>Overzicht van de cursus</h3>
+<table><tr><th>Onderwerp</th><th>Kernformule</th></tr>
+<tr><td>Klassieke kans</td><td><code>P(A) = gunstig / totaal</code></td></tr>
+<tr><td>Complement</td><td><code>P(Aᶜ) = 1 − P(A)</code></td></tr>
+<tr><td>Optelling</td><td><code>P(A∪B) = P(A)+P(B)−P(A∩B)</code></td></tr>
+<tr><td>Voorwaardelijk</td><td><code>P(A|B) = P(A∩B)/P(B)</code></td></tr>
+<tr><td>Totale kans</td><td><code>P(A) = Σ P(A|Bᵢ)·P(Bᵢ)</code></td></tr>
+<tr><td>Bayes</td><td><code>P(B|A) = P(A|B)·P(B)/P(A)</code></td></tr>
+<tr><td>Combinaties</td><td><code>C(n,k) = n!/(k!(n−k)!)</code></td></tr>
+<tr><td>Binomiaal</td><td><code>P(k) = C(n,k)·pᵏ·(1−p)ⁿ⁻ᵏ</code></td></tr>
+</table>`
+  },
+  basis: {
+    title: "Basisconcepten",
+    html: `<h3>Experiment en uitkomstenruimte</h3>
+<p>Een <strong>kansexperiment</strong> is een handeling waarvan de uitkomst onzeker is (bijv. een dobbelsteen gooien).</p>
+<p>De <strong>uitkomstenruimte</strong> Ω is de verzameling van alle mogelijke uitkomsten.</p>
+<blockquote>Dobbelsteen gooien: Ω = {1, 2, 3, 4, 5, 6}</blockquote>
+<h3>Gebeurtenis</h3>
+<p>Een <strong>gebeurtenis</strong> A is een deelverzameling van Ω.</p>
+<blockquote>A = "even getal" = {2, 4, 6}</blockquote>
+<h3>Klassieke kansformule</h3>
+<pre><code>P(A) = aantal gunstige uitkomsten / totaal aantal uitkomsten</code></pre>
+<blockquote>P(even) = 3/6 = 1/2 = 0,5</blockquote>`
+  },
+  uitkomstenruimte: {
+    title: "Uitkomstenruimte Ω",
+    html: `<h3>Definitie</h3>
+<p>De <strong>uitkomstenruimte Ω</strong> (omega) is de verzameling van <em>alle</em> mogelijke uitkomsten van een kansexperiment.</p>
+<h3>Voorbeelden</h3>
+<blockquote>Dobbelsteen: Ω = {1, 2, 3, 4, 5, 6}</blockquote>
+<blockquote>Munt opgooien: Ω = {kop, munt}</blockquote>
+<blockquote>Twee munten: Ω = {(K,K), (K,M), (M,K), (M,M)}</blockquote>
+<p>Het totale aantal uitkomsten in Ω gebruik je als noemer in de klassieke kansformule: <code>P(A) = |A| / |Ω|</code></p>`
+  },
+  gebeurtenis: {
+    title: "Gebeurtenis A",
+    html: `<h3>Definitie</h3>
+<p>Een <strong>gebeurtenis A</strong> is een deelverzameling van de uitkomstenruimte Ω — de uitkomsten die we interessant vinden.</p>
+<h3>Voorbeelden</h3>
+<blockquote>Dobbelsteen, A = "even getal" = {2, 4, 6}</blockquote>
+<blockquote>Dobbelsteen, B = "groter dan 4" = {5, 6}</blockquote>
+<h3>Bewerkingen op gebeurtenissen</h3>
+<ul>
+  <li><strong>Complement Aᶜ</strong> — alles wat niet in A zit</li>
+  <li><strong>Doorsnede A∩B</strong> — wat in zowel A als B zit</li>
+  <li><strong>Vereniging A∪B</strong> — wat in A of B (of beide) zit</li>
+</ul>`
+  },
+  klassiek: {
+    title: "Klassieke kansformule",
+    html: `<h3>Formule</h3>
+<pre><code>P(A) = aantal gunstige uitkomsten
+       ─────────────────────────────
+       totaal aantal mogelijke uitkomsten</code></pre>
+<p><strong>Voorwaarde:</strong> alle uitkomsten moeten even waarschijnlijk zijn.</p>
+<h3>Voorbeelden</h3>
+<blockquote>P(6 gooien) = 1/6 ≈ 0,167</blockquote>
+<blockquote>P(even getal) = 3/6 = 1/2 = 0,5</blockquote>
+<blockquote>P(aas trekken uit 52 kaarten) = 4/52 = 1/13 ≈ 0,077</blockquote>`
+  },
+  rekenwetten: {
+    title: "Rekenwetten",
+    html: `<h3>Complementregel</h3>
+<pre><code>P(Aᶜ) = 1 − P(A)</code></pre>
+<blockquote>P(geen 6) = 1 − 1/6 = 5/6 ≈ 0,833</blockquote>
+<h3>Optellingsregel (mutueel uitsluitend)</h3>
+<pre><code>P(A ∪ B) = P(A) + P(B)</code></pre>
+<blockquote>P(1 of 2) = 1/6 + 1/6 = 1/3</blockquote>
+<h3>Optellingsregel (algemeen)</h3>
+<pre><code>P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</code></pre>
+<blockquote>P(harten of aas) = 13/52 + 4/52 − 1/52 = 16/52</blockquote>`
+  },
+  complement: {
+    title: "Complementregel",
+    html: `<h3>Formule</h3>
+<pre><code>P(Aᶜ) = 1 − P(A)</code></pre>
+<p>Het <strong>complement</strong> Aᶜ (of Ā) is de gebeurtenis dat A <em>niet</em> optreedt.</p>
+<h3>Wanneer gebruiken?</h3>
+<p>De complementregel is handig als het makkelijker is om de kans op het <em>tegenovergestelde</em> te berekenen.</p>
+<h3>Voorbeelden</h3>
+<blockquote>P(geen 6) = 1 − 1/6 = 5/6 ≈ 0,833</blockquote>
+<blockquote>P(minstens één kop bij 3 munten) = 1 − P(geen kop) = 1 − (1/2)³ = 7/8</blockquote>`
+  },
+  optelling: {
+    title: "Optellingsregel",
+    html: `<h3>Mutueel uitsluitende gebeurtenissen</h3>
+<p>A en B kunnen <em>niet</em> tegelijk optreden (A∩B = ∅):</p>
+<pre><code>P(A ∪ B) = P(A) + P(B)</code></pre>
+<blockquote>P(1 of 2 gooien) = 1/6 + 1/6 = 2/6 = 1/3</blockquote>
+<h3>Algemene optellingsregel</h3>
+<p>A en B <em>kunnen</em> tegelijk optreden:</p>
+<pre><code>P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</code></pre>
+<blockquote>P(harten of aas) = 13/52 + 4/52 − 1/52 = 16/52 = 4/13</blockquote>
+<p>We trekken P(A∩B) af om te voorkomen dat we de doorsnede dubbel tellen.</p>`
+  },
+  uitsluitend: {
+    title: "Uitsluitend vs. algemeen",
+    html: `<h3>Mutueel uitsluitend (A∩B = ∅)</h3>
+<p>A en B kunnen <strong>niet tegelijk</strong> optreden.</p>
+<pre><code>P(A ∪ B) = P(A) + P(B)</code></pre>
+<blockquote>Een dobbelsteen: "1 gooien" en "6 gooien" — kan niet allebei.</blockquote>
+<h3>Overlappend (A∩B ≠ ∅)</h3>
+<p>A en B <strong>kunnen tegelijk</strong> optreden.</p>
+<pre><code>P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</code></pre>
+<blockquote>Een kaart: "harten" en "aas" — de harten-aas is allebei.</blockquote>
+<h3>Vuistregel</h3>
+<p>Controleer altijd of A∩B leeg is of niet, voor je de formule kiest.</p>`
+  },
+  bijzonder: {
+    title: "Bijzondere vraagstukken",
+    html: `<h3>Het verjaardagsprobleem</h3>
+<p>Bij hoeveel personen is de kans op een gedeelde verjaardag groter dan 50%?</p>
+<table><tr><th>Groep</th><th>Kans match</th></tr>
+<tr><td>10 personen</td><td>11,7%</td></tr>
+<tr><td>23 personen</td><td><strong>50,7%</strong></td></tr>
+<tr><td>30 personen</td><td>70,6%</td></tr>
+<tr><td>50 personen</td><td>97,0%</td></tr>
+</table>
+<h3>Binomiale verdeling</h3>
+<pre><code>P(k) = C(n,k) × pᵏ × (1−p)ⁿ⁻ᵏ</code></pre>
+<blockquote>10 munten opgooien, kans op precies 7 keer kruis:<br>P = C(10,7) × (0,5)⁷ × (0,5)³ = 120/1024 ≈ 11,7%</blockquote>`
+  },
+  verjaardag: {
+    title: "Verjaardagsprobleem",
+    html: `<h3>De vraag</h3>
+<p>Wat is de kans dat in een groep van <em>n</em> personen <strong>minstens twee</strong> mensen dezelfde verjaardag hebben?</p>
+<h3>Aanpak via complement</h3>
+<pre><code>P(minstens 1 match) = 1 − P(niemand zelfde verjaardag)</code></pre>
+<pre><code>P(geen match) = 365/365 × 364/365 × 363/365 × … × (365−n+1)/365</code></pre>
+<h3>Verrassende uitkomst</h3>
+<table><tr><th>n personen</th><th>Kans match</th></tr>
+<tr><td>10</td><td>11,7%</td></tr>
+<tr><td>23</td><td><strong>50,7%</strong></td></tr>
+<tr><td>30</td><td>70,6%</td></tr>
+<tr><td>50</td><td>97,0%</td></tr>
+</table>
+<p>Al bij <strong>23 personen</strong> is de kans groter dan 50% — omdat er enorm veel <em>paren</em> mogelijk zijn (C(23,2) = 253 paren).</p>`
+  },
+  binomiaal: {
+    title: "Binomiale verdeling",
+    html: `<h3>Wanneer gebruiken?</h3>
+<p>Bij <em>n</em> onafhankelijke pogingen, elk met kans <em>p</em> op succes. Vraag: kans op <em>precies k</em> successen?</p>
+<h3>Formule</h3>
+<pre><code>P(k) = C(n,k) × pᵏ × (1−p)ⁿ⁻ᵏ</code></pre>
+<h3>Voorbeeld</h3>
+<blockquote>10 munten opgooien (p = 0,5), kans op precies 7 keer kruis?<br><br>
+P(7) = C(10,7) × (0,5)⁷ × (0,5)³<br>
+= 120 × (1/128) × (1/8)<br>
+= 120/1024 ≈ <strong>11,7%</strong></blockquote>
+<h3>Componenten</h3>
+<ul>
+  <li><code>C(n,k)</code> — aantal manieren om k successen te plaatsen</li>
+  <li><code>pᵏ</code> — kans op k successen</li>
+  <li><code>(1−p)ⁿ⁻ᵏ</code> — kans op de overige mislukkingen</li>
+</ul>`
+  },
+  binstelling: {
+    title: "Binomiale stelling (a+b)ⁿ",
+    html: `<h3>De stelling</h3>
+<pre><code>(a + b)ⁿ = Σ C(n,k) × aⁿ⁻ᵏ × bᵏ   (k = 0 tot n)</code></pre>
+<h3>Voorbeeld voor n=3</h3>
+<pre><code>(a+b)³ = C(3,0)a³ + C(3,1)a²b + C(3,2)ab² + C(3,3)b³
+       = a³ + 3a²b + 3ab² + b³</code></pre>
+<h3>Nuttige identiteiten</h3>
+<ul>
+  <li>Som van rij: <code>C(n,0) + C(n,1) + … + C(n,n) = 2ⁿ</code></li>
+  <li>Symmetrie: <code>C(n,k) = C(n, n−k)</code></li>
+  <li>Pascal: <code>C(n,k) = C(n−1,k−1) + C(n−1,k)</code></li>
+</ul>
+<p>De coëfficiënten in (a+b)ⁿ zijn precies de getallen uit rij n van de driehoek van Pascal.</p>`
+  },
+  combinatoriek: {
+    title: "Combinatoriek — overzicht",
+    html: `<h3>De centrale vraag</h3>
+<p>Telt de volgorde mee, en mag herhaling?</p>
+<table>
+<tr><th></th><th>Volgorde telt</th><th>Volgorde telt niet</th></tr>
+<tr><td><strong>Geen herhaling</strong></td><td>Variatie V(n,k) = n!/(n−k)!<br>Permutatie P(n) = n!</td><td>Combinatie C(n,k) = n!/(k!(n−k)!)</td></tr>
+<tr><td><strong>Herhaling mag</strong></td><td>nᵏ</td><td>C_h(n,k) = C(n+k−1,k)</td></tr>
+</table>
+<h3>Telprincipe</h3>
+<p>Stap 1 op <em>m</em> manieren × stap 2 op <em>n</em> manieren = <strong>m×n</strong> mogelijkheden.</p>
+<blockquote>3 voorgerechten × 4 hoofdgerechten = 12 menu-combinaties</blockquote>`
+  },
+  faculteit: {
+    title: "Faculteit n!",
+    html: `<h3>Definitie</h3>
+<pre><code>n! = n × (n−1) × (n−2) × … × 2 × 1</code></pre>
+<p>Per definitie: <code>0! = 1</code></p>
+<h3>Tabel</h3>
+<table>
+<tr><th>n</th><th>n!</th></tr>
+<tr><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>1</td></tr>
+<tr><td>3</td><td>6</td></tr>
+<tr><td>5</td><td>120</td></tr>
+<tr><td>6</td><td>720</td></tr>
+<tr><td>10</td><td>3.628.800</td></tr>
+</table>
+<h3>Betekenis</h3>
+<p>n! is het aantal manieren om <em>n</em> objecten te rangschikken.</p>
+<blockquote>5 renners kunnen op 5! = 120 manieren finishen.</blockquote>`
+  },
+  variaties: {
+    title: "Variaties V(n,k)",
+    html: `<h3>Definitie</h3>
+<p>Een <strong>variatie</strong> is een geordende selectie van <em>k</em> objecten uit <em>n</em>, <strong>zonder herhaling</strong>. Volgorde telt.</p>
+<pre><code>V(n,k) = n! / (n − k)!</code></pre>
+<h3>Verschil met permutatie</h3>
+<ul>
+  <li><strong>Variatie V(n,k)</strong>: k uit n kiezen, volgorde telt (k ≤ n)</li>
+  <li><strong>Permutatie P(n)</strong>: álle n objecten rangschikken = speciaal geval waarbij k = n</li>
+</ul>
+<h3>Voorbeeld</h3>
+<blockquote>Gouden, zilveren en bronzen medaille verdelen onder 8 atleten:<br>V(8,3) = 8!/(8−3)! = 8×7×6 = <strong>336</strong></blockquote>`
+  },
+  permutaties: {
+    title: "Permutaties P(n)",
+    html: `<h3>Definitie</h3>
+<p>Een <strong>permutatie</strong> is een rangschikking van <em>alle n</em> objecten. Het is een speciaal geval van een variatie waarbij k = n.</p>
+<pre><code>P(n) = n!</code></pre>
+<h3>Met herhaling toegestaan</h3>
+<pre><code>nᵏ mogelijkheden (k posities, n soorten)</code></pre>
+<h3>Niet-onderscheidbare objecten</h3>
+<pre><code>n! / (n₁! × n₂! × … × nₖ!)</code></pre>
+<blockquote>BANAAN (B×1, A×3, N×2): 6!/(1!×3!×2!) = <strong>60</strong></blockquote>
+<blockquote>MISSISSIPPI (M×1, I×4, S×4, P×2): 11!/(1!×4!×4!×2!) = <strong>34.650</strong></blockquote>`
+  },
+  combinaties: {
+    title: "Combinaties C(n,k)",
+    html: `<h3>Definitie</h3>
+<p>Een <strong>combinatie</strong> is een ongeordende selectie: je kiest <em>k</em> objecten uit <em>n</em>, volgorde maakt niet uit.</p>
+<pre><code>C(n,k) = n! / (k! × (n − k)!)</code></pre>
+<h3>Handige eigenschappen</h3>
+<ul>
+  <li><code>C(n,0) = 1</code></li>
+  <li><code>C(n,n) = 1</code></li>
+  <li><code>C(n,k) = C(n, n−k)</code> (symmetrie)</li>
+</ul>
+<h3>Voorbeeld</h3>
+<blockquote>Commissie van 3 uit 8 kandidaten:<br>C(8,3) = 8!/(3!×5!) = <strong>56</strong></blockquote>
+<blockquote>Lotto: 6 uit 45 kiezen:<br>C(45,6) = <strong>8.145.060</strong></blockquote>`
+  },
+  herhaling: {
+    title: "Combinaties met herhaling C_h(n,k)",
+    html: `<h3>Definitie</h3>
+<p>Je kiest <em>k</em> objecten uit <em>n</em> soorten, herhaling <strong>mag</strong>, volgorde telt niet.</p>
+<pre><code>C_h(n,k) = C(n + k − 1, k)</code></pre>
+<h3>Voorbeeld</h3>
+<blockquote>IJssalon: 5 smaken, 3 bolletjes kiezen (smaken mogen herhalen, hoorntje = geen volgorde):<br>C_h(5,3) = C(7,3) = <strong>35</strong> mogelijkheden</blockquote>
+<h3>Vergelijking</h3>
+<table>
+<tr><th>Type</th><th>Formule</th><th>Voorbeeld (5 smaken, 3 bolletjes)</th></tr>
+<tr><td>Zonder herhaling</td><td>C(5,3)</td><td>10</td></tr>
+<tr><td>Met herhaling</td><td>C_h(5,3) = C(7,3)</td><td>35</td></tr>
+</table>`
+  },
+  pascal: {
+    title: "Driehoek van Pascal",
+    html: `<h3>De driehoek</h3>
+<pre><code>        1
+       1 1
+      1 2 1
+     1 3 3 1
+    1 4 6 4 1
+   1 5 10 10 5 1</code></pre>
+<p>Rij <em>n</em> geeft de waarden C(n,0) t/m C(n,n). Elke waarde is de som van de twee waarden erboven.</p>
+<h3>Pascal's regel</h3>
+<pre><code>C(n,k) = C(n−1, k−1) + C(n−1, k)</code></pre>
+<h3>Toepassingen</h3>
+<ul>
+  <li>Snel C(n,k) opzoeken zonder formule</li>
+  <li>Coëfficiënten van (a+b)ⁿ</li>
+  <li>Som van rij n = 2ⁿ</li>
+</ul>`
+  },
+  voorwaardelijk: {
+    title: "Voorwaardelijke kans",
+    html: `<h3>Definitie</h3>
+<p>De <strong>voorwaardelijke kans</strong> P(A|B) is de kans op A, <em>gegeven dat</em> B al is opgetreden.</p>
+<pre><code>P(A | B) = P(A ∩ B) / P(B)    [P(B) > 0]</code></pre>
+<h3>Voorbeeld</h3>
+<blockquote>Klas: 18 meisjes, 12 jongens. 6 meisjes dragen bril.<br><br>
+P(bril | meisje) = (6/30) / (18/30) = 6/18 = <strong>1/3</strong></blockquote>
+<h3>Vermenigvuldigingsregel</h3>
+<pre><code>P(A ∩ B) = P(A | B) × P(B)</code></pre>`
+  },
+  "formule-vk": {
+    title: "P(A|B) = P(A∩B)/P(B)",
+    html: `<h3>De formule stap voor stap</h3>
+<pre><code>P(A | B) = P(A ∩ B) / P(B)</code></pre>
+<ul>
+  <li><strong>P(A|B)</strong> — kans op A, wetende dat B is opgetreden</li>
+  <li><strong>P(A∩B)</strong> — kans dat A én B allebei optreden</li>
+  <li><strong>P(B)</strong> — kans op B (moet > 0 zijn)</li>
+</ul>
+<h3>Intuïtie</h3>
+<p>We "verkleinen" de uitkomstenruimte naar alleen de uitkomsten waar B optreedt, en kijken dan hoeveel van die uitkomsten ook A zijn.</p>
+<h3>Voorbeeld</h3>
+<blockquote>Twee dobbelstenen. Gegeven dat de som even is, wat is de kans dat beide dobbelstenen even zijn?<br><br>
+P(beide even ∩ som even) = P(beide even) = 9/36<br>
+P(som even) = 18/36<br>
+P(beide even | som even) = (9/36)/(18/36) = <strong>1/2</strong></blockquote>`
+  },
+  onafhankelijk: {
+    title: "Onafhankelijkheid",
+    html: `<h3>Definitie</h3>
+<p>A en B zijn <strong>onafhankelijk</strong> als het optreden van B geen invloed heeft op de kans van A:</p>
+<pre><code>P(A | B) = P(A)</code></pre>
+<p>Dit leidt tot de vermenigvuldigingsregel:</p>
+<pre><code>P(A ∩ B) = P(A) × P(B)</code></pre>
+<h3>Voorbeeld onafhankelijk</h3>
+<blockquote>Munt twee keer opgooien:<br>P(kop, dan munt) = 1/2 × 1/2 = 1/4</blockquote>
+<h3>Afhankelijke gebeurtenissen</h3>
+<p>Als de eerste uitkomst de tweede beïnvloedt:</p>
+<blockquote>Twee azen trekken zonder terugleggen:<br>
+P(1e aas) = 4/52<br>
+P(2e aas | 1e aas) = 3/51<br>
+P(beide azen) = 4/52 × 3/51 = <strong>1/221</strong></blockquote>`
+  },
+  "totale-kans": {
+    title: "Wet van de totale kans",
+    html: `<h3>De wet</h3>
+<p>Als B₁, B₂, …, Bₙ een partitie vormen van Ω (mutueel uitsluitend en uitputtend), dan:</p>
+<pre><code>P(A) = P(A|B₁)·P(B₁) + P(A|B₂)·P(B₂) + … + P(A|Bₙ)·P(Bₙ)</code></pre>
+<h3>Voorbeeld</h3>
+<blockquote>Fabriek: machine X (60%) en machine Y (40%).<br>
+X produceert 2% defect; Y produceert 5% defect.<br><br>
+P(defect) = 0,02 × 0,60 + 0,05 × 0,40<br>
+= 0,012 + 0,020 = <strong>0,032 (3,2%)</strong></blockquote>
+<h3>Gebruik</h3>
+<p>Gebruik deze wet als je de totale kans wil berekenen, maar alleen deelkansen kent per scenario. Combineer daarna met Bayes om de omgekeerde vraag te beantwoorden.</p>`
+  },
+  bayes: {
+    title: "Stelling van Bayes",
+    html: `<h3>De formule</h3>
+<pre><code>P(B | A) = P(A | B) × P(B) / P(A)</code></pre>
+<p>Bayes draait de voorwaardelijke kans om: als we P(A|B) kennen, berekenen we P(B|A).</p>
+<h3>Medisch voorbeeld</h3>
+<blockquote>Ziekte treft 1%: P(ziek) = 0,01<br>
+Test positief als ziek: P(+|ziek) = 0,99<br>
+Vals-positief: P(+|gezond) = 0,05<br><br>
+P(+) = 0,99×0,01 + 0,05×0,99 = 0,0594<br>
+P(ziek|+) = (0,99×0,01)/0,0594 ≈ <strong>16,7%</strong></blockquote>
+<p>Ondanks positieve test slechts 16,7% kans op ziekte — omdat de ziekte zeldzaam is!</p>
+<h3>Toepassingen</h3>
+<p>Spam-filters, medische diagnose, rechtszaken, AI.</p>`
+  },
+  "formule-bayes": {
+    title: "Formule van Bayes",
+    html: `<h3>De formule</h3>
+<pre><code>P(B | A) = P(A | B) × P(B) / P(A)</code></pre>
+<h3>Elke term verklaard</h3>
+<ul>
+  <li><strong>P(B|A)</strong> — wat we willen weten (posterior)</li>
+  <li><strong>P(A|B)</strong> — wat we al weten (likelihood)</li>
+  <li><strong>P(B)</strong> — basisfrequentie (prior)</li>
+  <li><strong>P(A)</strong> — totale kans op A (via wet totale kans)</li>
+</ul>
+<h3>Stap-voor-stap berekening</h3>
+<blockquote>
+1. Bepaal P(B) en P(Bᶜ)<br>
+2. Bepaal P(A|B) en P(A|Bᶜ)<br>
+3. Bereken P(A) = P(A|B)·P(B) + P(A|Bᶜ)·P(Bᶜ)<br>
+4. Vul in: P(B|A) = P(A|B)·P(B) / P(A)
+</blockquote>`
+  },
+  medisch: {
+    title: "Medische test — voorbeeld",
+    html: `<h3>Het probleem</h3>
+<ul>
+  <li>Ziekte treft <strong>1%</strong> van de bevolking: P(ziek) = 0,01</li>
+  <li>Test positief als ziek: P(+|ziek) = 0,99 (sensitiviteit)</li>
+  <li>Vals-positief als gezond: P(+|gezond) = 0,05</li>
+</ul>
+<h3>Vraag</h3>
+<p>Wat is de kans dat iemand écht ziek is, gegeven een positieve test?</p>
+<h3>Oplossing</h3>
+<pre><code>P(+) = 0,99 × 0,01 + 0,05 × 0,99
+     = 0,0099 + 0,0495 = 0,0594
+
+P(ziek|+) = (0,99 × 0,01) / 0,0594
+           ≈ 0,167 = 16,7%</code></pre>
+<h3>Conclusie</h3>
+<p>Ondanks een positieve test is de kans op ziekte maar <strong>16,7%</strong> — omdat de ziekte zeldzaam is. De basisfrequentie (prior) is cruciaal!</p>`
+  },
+  toepassingen: {
+    title: "Toepassingen van Bayes",
+    html: `<h3>Spam-filters</h3>
+<p>P(spam | woord "gratis") wordt berekend op basis van hoe vaak "gratis" in spam vs. normale mail voorkomt. De filter leert en past de kansen aan.</p>
+<h3>Medische diagnose</h3>
+<p>Artsen combineren testresultaten met basisfrequentie van een ziekte om de werkelijke kans op ziekte te schatten — ook al zijn tests niet 100% betrouwbaar.</p>
+<h3>Rechtbank</h3>
+<p>DNA-bewijs heeft een bepaalde kans op een match bij onschuldigen. Bayes voorkomt de <em>prosecutor's fallacy</em>: P(match|onschuldig) ≠ P(onschuldig|match).</p>
+<h3>Kunstmatige intelligentie</h3>
+<p>Bayesiaanse netwerken modelleren onzekerheid in AI-systemen. Veel machine learning-algoritmes zijn in essentie Bayesiaans van opzet.</p>`
+  }
+};
+
+const panel = document.getElementById('panel');
 const panelTopic = document.getElementById('panel-topic');
-const panelBody  = document.getElementById('panel-body');
+const panelBody = document.getElementById('panel-body');
 
 document.querySelectorAll('.node-group').forEach(node => {
   node.addEventListener('click', () => {
+    const id = node.dataset.id;
+    const data = CONTENT[id];
+    if (!data) return;
     document.querySelectorAll('.node-group').forEach(n => n.classList.remove('active'));
     node.classList.add('active');
-    openPanel(node.dataset.topic, node.dataset.prompt);
+    panelTopic.textContent = data.title;
+    panelBody.innerHTML = data.html;
+    panel.classList.remove('collapsed');
   });
 });
-
-function openPanel(topic, prompt) {
-  panelTopic.textContent = topic;
-  panelBody.innerHTML = `<div class="loading"><div class="dot-anim"><span></span><span></span><span></span></div> Uitleg laden…</div>`;
-  panel.classList.remove('collapsed');
-  askClaude(prompt);
-}
 
 function closePanel() {
   panel.classList.add('collapsed');
   document.querySelectorAll('.node-group').forEach(n => n.classList.remove('active'));
-}
-
-async function askClaude(prompt) {
-  try {
-    const res = await fetch('/api/ask', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt })
-    });
-    const data = await res.json();
-    panelBody.innerHTML = data.text || '<p>Geen antwoord ontvangen.</p>';
-  } catch (err) {
-    panelBody.innerHTML = `<p class="error-msg">⚠️ Fout: ${err.message}</p>`;
-  }
 }
 </script>
 </body>
