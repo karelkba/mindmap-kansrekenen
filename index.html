@@ -38,6 +38,21 @@
   .panel-body ul { padding-left: 18px; margin: 8px 0; }
   .panel-body li { margin-bottom: 4px; }
   .hint { text-align: center; color: #2a2d3a; font-size: 11px; margin-top: 8px; }
+  .naar-cursus-btn {
+    display: block;
+    margin: 16px 0 4px;
+    padding: 9px 16px;
+    background: #1e2130;
+    color: #9b91d4;
+    border: 1px solid #3d3489;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+  }
+  .naar-cursus-btn:hover { background: #3d3489; color: #d0ccf4; }
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-thumb { background: #2a2d3a; border-radius: 3px; }
 </style>
@@ -327,7 +342,8 @@ document.querySelectorAll('.node-group').forEach(node => {
     document.querySelectorAll('.node-group').forEach(n => n.classList.remove('active'));
     node.classList.add('active');
     panelTopic.textContent = data.title;
-    panelBody.innerHTML = data.html;
+    panelBody.innerHTML = data.html +
+      `<a class="naar-cursus-btn" href="cursus.html#${id}" target="_blank">📖 Lees meer in de cursus →</a>`;
     panel.classList.remove('collapsed');
   });
 });
