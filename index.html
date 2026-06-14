@@ -210,413 +210,106 @@
 
 <script>
 const CONTENT = {
-  overzicht: {
-    title: "Kansrekenen — overzicht",
-    html: `<h3>Wat is kansrekenen?</h3>
-<p>Kansrekenen is de wiskundige studie van toeval en onzekerheid. <strong>Kans</strong> (notatie: <em>P</em>) is altijd een getal tussen 0 en 1:</p>
-<ul>
-  <li><strong>P = 0</strong> — de gebeurtenis is onmogelijk</li>
-  <li><strong>P = 1</strong> — de gebeurtenis is zeker</li>
-  <li><strong>P = 0,5</strong> — fifty-fifty</li>
-</ul>
-<h3>Overzicht van de cursus</h3>
-<table><tr><th>Onderwerp</th><th>Kernformule</th></tr>
-<tr><td>Klassieke kans</td><td><code>P(A) = gunstig / totaal</code></td></tr>
-<tr><td>Complement</td><td><code>P(Aᶜ) = 1 − P(A)</code></td></tr>
-<tr><td>Optelling</td><td><code>P(A∪B) = P(A)+P(B)−P(A∩B)</code></td></tr>
-<tr><td>Voorwaardelijk</td><td><code>P(A|B) = P(A∩B)/P(B)</code></td></tr>
-<tr><td>Totale kans</td><td><code>P(A) = Σ P(A|Bᵢ)·P(Bᵢ)</code></td></tr>
-<tr><td>Bayes</td><td><code>P(B|A) = P(A|B)·P(B)/P(A)</code></td></tr>
-<tr><td>Combinaties</td><td><code>C(n,k) = n!/(k!(n−k)!)</code></td></tr>
-<tr><td>Binomiaal</td><td><code>P(k) = C(n,k)·pᵏ·(1−p)ⁿ⁻ᵏ</code></td></tr>
-</table>`
+  "overzicht": {
+    title: `Kansrekenen — overzicht`,
+    html: `<p>Kansrekenen meet hoe waarschijnlijk iets is, uitgedrukt als een getal tussen 0 (onmogelijk) en 1 (zeker). Kernformules: P(A) = gunstig/totaal</p><ul><li>P(Aᶜ) = 1−P(A)</li><li>P(A∪B) = P(A)+P(B)−P(A∩B)</li><li>P(A|B) = P(A∩B)/P(B)</li><li>Bayes: P(B|A) = P(A|B)·P(B)/P(A)</li></ul>`
   },
-  basis: {
-    title: "Basisconcepten",
-    html: `<h3>Experiment en uitkomstenruimte</h3>
-<p>Een <strong>kansexperiment</strong> is een handeling waarvan de uitkomst onzeker is (bijv. een dobbelsteen gooien).</p>
-<p>De <strong>uitkomstenruimte</strong> Ω is de verzameling van alle mogelijke uitkomsten.</p>
-<blockquote>Dobbelsteen gooien: Ω = {1, 2, 3, 4, 5, 6}</blockquote>
-<h3>Gebeurtenis</h3>
-<p>Een <strong>gebeurtenis</strong> A is een deelverzameling van Ω.</p>
-<blockquote>A = "even getal" = {2, 4, 6}</blockquote>
-<h3>Klassieke kansformule</h3>
-<pre><code>P(A) = aantal gunstige uitkomsten / totaal aantal uitkomsten</code></pre>
-<blockquote>P(even) = 3/6 = 1/2 = 0,5</blockquote>`
+  "uitkomstenruimte": {
+    title: `Uitkomstenruimte Ω`,
+    html: `<p>De uitkomstenruimte Ω is de verzameling van ALLE mogelijke uitkomsten van een experiment. Dobbelsteen: Ω = {1,2,3,4,5,6}</p><ul><li>Munt: Ω = {kop, munt}</li><li>Twee munten: Ω = {(K,K),(K,M),(M,K),(M,M)}. Het totaal aantal uitkomsten in Ω is de noemer in de klassieke kansformule.</li></ul>`
   },
-  uitkomstenruimte: {
-    title: "Uitkomstenruimte Ω",
-    html: `<h3>Definitie</h3>
-<p>De <strong>uitkomstenruimte Ω</strong> (omega) is de verzameling van <em>alle</em> mogelijke uitkomsten van een kansexperiment.</p>
-<h3>Voorbeelden</h3>
-<blockquote>Dobbelsteen: Ω = {1, 2, 3, 4, 5, 6}</blockquote>
-<blockquote>Munt opgooien: Ω = {kop, munt}</blockquote>
-<blockquote>Twee munten: Ω = {(K,K), (K,M), (M,K), (M,M)}</blockquote>
-<p>Het totale aantal uitkomsten in Ω gebruik je als noemer in de klassieke kansformule: <code>P(A) = |A| / |Ω|</code></p>`
+  "gebeurtenis": {
+    title: `Gebeurtenis A`,
+    html: `<p>Een gebeurtenis A is een deelverzameling van Ω. Voorbeeld: A = "even getal" = {2,4,6}. Bewerkingen: complement Aᶜ (alles wat niet in A zit)</p><ul><li>doorsnede A∩B (wat in beide zit)</li><li>vereniging A∪B (wat in A of B zit).</li></ul>`
   },
-  gebeurtenis: {
-    title: "Gebeurtenis A",
-    html: `<h3>Definitie</h3>
-<p>Een <strong>gebeurtenis A</strong> is een deelverzameling van de uitkomstenruimte Ω — de uitkomsten die we interessant vinden.</p>
-<h3>Voorbeelden</h3>
-<blockquote>Dobbelsteen, A = "even getal" = {2, 4, 6}</blockquote>
-<blockquote>Dobbelsteen, B = "groter dan 4" = {5, 6}</blockquote>
-<h3>Bewerkingen op gebeurtenissen</h3>
-<ul>
-  <li><strong>Complement Aᶜ</strong> — alles wat niet in A zit</li>
-  <li><strong>Doorsnede A∩B</strong> — wat in zowel A als B zit</li>
-  <li><strong>Vereniging A∪B</strong> — wat in A of B (of beide) zit</li>
-</ul>`
+  "klassiek": {
+    title: `Klassieke kansformule`,
+    html: `<p>P(A) = gunstige uitkomsten / totaal aantal uitkomsten. Alleen geldig als alle uitkomsten even waarschijnlijk zijn. Voorbeelden: P(6 gooien) = 1/6</p><ul><li>P(even) = 3/6 = 0,5</li><li>P(aas uit 52 kaarten) = 4/52 = 1/13.</li></ul>`
   },
-  klassiek: {
-    title: "Klassieke kansformule",
-    html: `<h3>Formule</h3>
-<pre><code>P(A) = aantal gunstige uitkomsten
-       ─────────────────────────────
-       totaal aantal mogelijke uitkomsten</code></pre>
-<p><strong>Voorwaarde:</strong> alle uitkomsten moeten even waarschijnlijk zijn.</p>
-<h3>Voorbeelden</h3>
-<blockquote>P(6 gooien) = 1/6 ≈ 0,167</blockquote>
-<blockquote>P(even getal) = 3/6 = 1/2 = 0,5</blockquote>
-<blockquote>P(aas trekken uit 52 kaarten) = 4/52 = 1/13 ≈ 0,077</blockquote>`
+  "complement": {
+    title: `Complementregel`,
+    html: `<p>P(Aᶜ) = 1 − P(A). Gebruik de complementregel als het makkelijker is om de kans op het TEGENOVERGESTELDE te berekenen. Voorbeeld: P(minstens één kop bij 3 munten) = 1 − P(geen kop) = 1 − (1/2)³ = 7/8.</p>`
   },
-  rekenwetten: {
-    title: "Rekenwetten",
-    html: `<h3>Complementregel</h3>
-<pre><code>P(Aᶜ) = 1 − P(A)</code></pre>
-<blockquote>P(geen 6) = 1 − 1/6 = 5/6 ≈ 0,833</blockquote>
-<h3>Optellingsregel (mutueel uitsluitend)</h3>
-<pre><code>P(A ∪ B) = P(A) + P(B)</code></pre>
-<blockquote>P(1 of 2) = 1/6 + 1/6 = 1/3</blockquote>
-<h3>Optellingsregel (algemeen)</h3>
-<pre><code>P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</code></pre>
-<blockquote>P(harten of aas) = 13/52 + 4/52 − 1/52 = 16/52</blockquote>`
+  "optelling": {
+    title: `Optellingsregel`,
+    html: `<p>Mutueel uitsluitend (A∩B=∅): P(A∪B) = P(A) + P(B). Algemeen: P(A∪B) = P(A) + P(B) − P(A∩B). Trek de doorsnede af om dubbeltelling te vermijden. Controleer altijd eerst of A en B tegelijk kunnen optreden.</p>`
   },
-  complement: {
-    title: "Complementregel",
-    html: `<h3>Formule</h3>
-<pre><code>P(Aᶜ) = 1 − P(A)</code></pre>
-<p>Het <strong>complement</strong> Aᶜ (of Ā) is de gebeurtenis dat A <em>niet</em> optreedt.</p>
-<h3>Wanneer gebruiken?</h3>
-<p>De complementregel is handig als het makkelijker is om de kans op het <em>tegenovergestelde</em> te berekenen.</p>
-<h3>Voorbeelden</h3>
-<blockquote>P(geen 6) = 1 − 1/6 = 5/6 ≈ 0,833</blockquote>
-<blockquote>P(minstens één kop bij 3 munten) = 1 − P(geen kop) = 1 − (1/2)³ = 7/8</blockquote>`
+  "uitsluitend": {
+    title: `Uitsluitend vs. algemeen`,
+    html: `<p>Mutueel uitsluitend: A en B kunnen NIET tegelijk optreden → P(A∪B) = P(A)+P(B). Overlappend: A en B KAN BEIDEN optreden → P(A∪B) = P(A)+P(B)−P(A∩B). Voorbeeld mutueel uitsluitend: "1 gooien" en "6 gooien". Voorbeeld overlappend: "harten" en "aas" (de harten-aas is allebei).</p>`
   },
-  optelling: {
-    title: "Optellingsregel",
-    html: `<h3>Mutueel uitsluitende gebeurtenissen</h3>
-<p>A en B kunnen <em>niet</em> tegelijk optreden (A∩B = ∅):</p>
-<pre><code>P(A ∪ B) = P(A) + P(B)</code></pre>
-<blockquote>P(1 of 2 gooien) = 1/6 + 1/6 = 2/6 = 1/3</blockquote>
-<h3>Algemene optellingsregel</h3>
-<p>A en B <em>kunnen</em> tegelijk optreden:</p>
-<pre><code>P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</code></pre>
-<blockquote>P(harten of aas) = 13/52 + 4/52 − 1/52 = 16/52 = 4/13</blockquote>
-<p>We trekken P(A∩B) af om te voorkomen dat we de doorsnede dubbel tellen.</p>`
+  "combinatoriek": {
+    title: `Combinatoriek`,
+    html: `<p>Vier telmodellen: (1) volgorde telt, geen herhaling → Variatie V(n,k)=n!/(n−k)! (2) alle n rangschikken → Permutatie P(n)=n! (3) volgorde telt niet, geen herhaling → Combinatie C(n,k)=n!/(k!(n−k)!) (4) herhaling mag, volgorde telt niet → C_h(n,k)=C(n+k−1,k). Telprincipe: stap1×stap2×… mogelijkheden.</p>`
   },
-  uitsluitend: {
-    title: "Uitsluitend vs. algemeen",
-    html: `<h3>Mutueel uitsluitend (A∩B = ∅)</h3>
-<p>A en B kunnen <strong>niet tegelijk</strong> optreden.</p>
-<pre><code>P(A ∪ B) = P(A) + P(B)</code></pre>
-<blockquote>Een dobbelsteen: "1 gooien" en "6 gooien" — kan niet allebei.</blockquote>
-<h3>Overlappend (A∩B ≠ ∅)</h3>
-<p>A en B <strong>kunnen tegelijk</strong> optreden.</p>
-<pre><code>P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</code></pre>
-<blockquote>Een kaart: "harten" en "aas" — de harten-aas is allebei.</blockquote>
-<h3>Vuistregel</h3>
-<p>Controleer altijd of A∩B leeg is of niet, voor je de formule kiest.</p>`
+  "faculteit": {
+    title: `Faculteit n!`,
+    html: `<p>n! = n × (n−1) × … × 2 × 1. Betekenis: aantal manieren om n objecten te rangschikken. Per definitie: 0!=1. Tabel: 3!=6</p><ul><li>5!=120</li><li>6!=720</li><li>10!=3.628.800. Voorbeeld: 5 renners kunnen op 5!=120 manieren finishen.</li></ul>`
   },
-  bijzonder: {
-    title: "Bijzondere vraagstukken",
-    html: `<h3>Het verjaardagsprobleem</h3>
-<p>Bij hoeveel personen is de kans op een gedeelde verjaardag groter dan 50%?</p>
-<table><tr><th>Groep</th><th>Kans match</th></tr>
-<tr><td>10 personen</td><td>11,7%</td></tr>
-<tr><td>23 personen</td><td><strong>50,7%</strong></td></tr>
-<tr><td>30 personen</td><td>70,6%</td></tr>
-<tr><td>50 personen</td><td>97,0%</td></tr>
-</table>
-<h3>Binomiale verdeling</h3>
-<pre><code>P(k) = C(n,k) × pᵏ × (1−p)ⁿ⁻ᵏ</code></pre>
-<blockquote>10 munten opgooien, kans op precies 7 keer kruis:<br>P = C(10,7) × (0,5)⁷ × (0,5)³ = 120/1024 ≈ 11,7%</blockquote>`
+  "variaties": {
+    title: `Variaties V(n,k)`,
+    html: `<p>Variatie V(n,k): geordende keuze van k uit n, zonder herhaling. V(n,k) = n!/(n−k)!. Verschil met permutatie: bij een variatie kies je k uit n (k≤n); bij een permutatie rangschik je ALLE n elementen. Voorbeeld: goud/zilver/brons onder 8 atleten: V(8,3)=8×7×6=336.</p>`
   },
-  verjaardag: {
-    title: "Verjaardagsprobleem",
-    html: `<h3>De vraag</h3>
-<p>Wat is de kans dat in een groep van <em>n</em> personen <strong>minstens twee</strong> mensen dezelfde verjaardag hebben?</p>
-<h3>Aanpak via complement</h3>
-<pre><code>P(minstens 1 match) = 1 − P(niemand zelfde verjaardag)</code></pre>
-<pre><code>P(geen match) = 365/365 × 364/365 × 363/365 × … × (365−n+1)/365</code></pre>
-<h3>Verrassende uitkomst</h3>
-<table><tr><th>n personen</th><th>Kans match</th></tr>
-<tr><td>10</td><td>11,7%</td></tr>
-<tr><td>23</td><td><strong>50,7%</strong></td></tr>
-<tr><td>30</td><td>70,6%</td></tr>
-<tr><td>50</td><td>97,0%</td></tr>
-</table>
-<p>Al bij <strong>23 personen</strong> is de kans groter dan 50% — omdat er enorm veel <em>paren</em> mogelijk zijn (C(23,2) = 253 paren).</p>`
+  "permutaties": {
+    title: `Permutaties P(n)`,
+    html: `<p>Permutatie P(n)=n!: rangschikking van ALLE n elementen. Met herhaling (pincode): nᵏ. Niet-onderscheidbaar: n!/(n₁!×n₂!×…). Voorbeelden: BANAAN (B×1,A×3,N×2): 6!/(1!×3!×2!)=60</p><ul><li>MISSISSIPPI: 11!/(1!×4!×4!×2!)=34.650.</li></ul>`
   },
-  binomiaal: {
-    title: "Binomiale verdeling",
-    html: `<h3>Wanneer gebruiken?</h3>
-<p>Bij <em>n</em> onafhankelijke pogingen, elk met kans <em>p</em> op succes. Vraag: kans op <em>precies k</em> successen?</p>
-<h3>Formule</h3>
-<pre><code>P(k) = C(n,k) × pᵏ × (1−p)ⁿ⁻ᵏ</code></pre>
-<h3>Voorbeeld</h3>
-<blockquote>10 munten opgooien (p = 0,5), kans op precies 7 keer kruis?<br><br>
-P(7) = C(10,7) × (0,5)⁷ × (0,5)³<br>
-= 120 × (1/128) × (1/8)<br>
-= 120/1024 ≈ <strong>11,7%</strong></blockquote>
-<h3>Componenten</h3>
-<ul>
-  <li><code>C(n,k)</code> — aantal manieren om k successen te plaatsen</li>
-  <li><code>pᵏ</code> — kans op k successen</li>
-  <li><code>(1−p)ⁿ⁻ᵏ</code> — kans op de overige mislukkingen</li>
-</ul>`
+  "combinaties": {
+    title: `Combinaties C(n,k)`,
+    html: `<p>C(n,k) = n!/(k!×(n−k)!): ongeordende keuze van k uit n, geen herhaling. Eigenschappen: C(n,0)=1</p><ul><li>C(n,n)=1</li><li>C(n,k)=C(n,n−k). Voorbeelden: commissie van 3 uit 8: C(8,3)=56</li><li>lotto 6 uit 45: C(45,6)=8.145.060.</li></ul>`
   },
-  binstelling: {
-    title: "Binomiale stelling (a+b)ⁿ",
-    html: `<h3>De stelling</h3>
-<pre><code>(a + b)ⁿ = Σ C(n,k) × aⁿ⁻ᵏ × bᵏ   (k = 0 tot n)</code></pre>
-<h3>Voorbeeld voor n=3</h3>
-<pre><code>(a+b)³ = C(3,0)a³ + C(3,1)a²b + C(3,2)ab² + C(3,3)b³
-       = a³ + 3a²b + 3ab² + b³</code></pre>
-<h3>Nuttige identiteiten</h3>
-<ul>
-  <li>Som van rij: <code>C(n,0) + C(n,1) + … + C(n,n) = 2ⁿ</code></li>
-  <li>Symmetrie: <code>C(n,k) = C(n, n−k)</code></li>
-  <li>Pascal: <code>C(n,k) = C(n−1,k−1) + C(n−1,k)</code></li>
-</ul>
-<p>De coëfficiënten in (a+b)ⁿ zijn precies de getallen uit rij n van de driehoek van Pascal.</p>`
+  "pascal": {
+    title: `Driehoek van Pascal`,
+    html: `<p>Rij n van de driehoek geeft C(n,0) t/m C(n,n). Elke waarde = som van twee waarden erboven (Pascal's regel: C(n,k)=C(n−1,k−1)+C(n−1,k)). Som van rij n = 2ⁿ. Rij 4: 1 4 6 4 1 → C(4,0)=1, C(4,1)=4, C(4,2)=6, C(4,3)=4, C(4,4)=1.</p>`
   },
-  combinatoriek: {
-    title: "Combinatoriek — overzicht",
-    html: `<h3>De centrale vraag</h3>
-<p>Telt de volgorde mee, en mag herhaling?</p>
-<table>
-<tr><th></th><th>Volgorde telt</th><th>Volgorde telt niet</th></tr>
-<tr><td><strong>Geen herhaling</strong></td><td>Variatie V(n,k) = n!/(n−k)!<br>Permutatie P(n) = n!</td><td>Combinatie C(n,k) = n!/(k!(n−k)!)</td></tr>
-<tr><td><strong>Herhaling mag</strong></td><td>nᵏ</td><td>C_h(n,k) = C(n+k−1,k)</td></tr>
-</table>
-<h3>Telprincipe</h3>
-<p>Stap 1 op <em>m</em> manieren × stap 2 op <em>n</em> manieren = <strong>m×n</strong> mogelijkheden.</p>
-<blockquote>3 voorgerechten × 4 hoofdgerechten = 12 menu-combinaties</blockquote>`
+  "herhaling": {
+    title: `Combinaties met herhaling`,
+    html: `<p>C_h(n,k) = C(n+k−1,k): ongeordende keuze van k uit n soorten, herhaling MAG. Vergelijking: zonder herhaling C(5,3)=10</p><ul><li>met herhaling C_h(5,3)=C(7,3)=35. Voorbeeld: ijssalon met 5 smaken, 3 bolletjes kiezen (smaken mogen herhalen): 35 mogelijkheden.</li></ul>`
   },
-  faculteit: {
-    title: "Faculteit n!",
-    html: `<h3>Definitie</h3>
-<pre><code>n! = n × (n−1) × (n−2) × … × 2 × 1</code></pre>
-<p>Per definitie: <code>0! = 1</code></p>
-<h3>Tabel</h3>
-<table>
-<tr><th>n</th><th>n!</th></tr>
-<tr><td>0</td><td>1</td></tr>
-<tr><td>1</td><td>1</td></tr>
-<tr><td>3</td><td>6</td></tr>
-<tr><td>5</td><td>120</td></tr>
-<tr><td>6</td><td>720</td></tr>
-<tr><td>10</td><td>3.628.800</td></tr>
-</table>
-<h3>Betekenis</h3>
-<p>n! is het aantal manieren om <em>n</em> objecten te rangschikken.</p>
-<blockquote>5 renners kunnen op 5! = 120 manieren finishen.</blockquote>`
+  "binstelling": {
+    title: `Binomiale stelling (a+b)ⁿ`,
+    html: `<p>(a+b)ⁿ = Σ C(n,k)×aⁿ⁻ᵏ×bᵏ. Voorbeeld: (a+b)³ = a³+3a²b+3ab²+b³. De coëfficiënten zijn de getallen uit rij n van de driehoek van Pascal. Identiteiten: som rij = 2ⁿ</p><ul><li>symmetrie C(n,k)=C(n,n−k)</li><li>Pascal C(n,k)=C(n−1,k−1)+C(n−1,k).</li></ul>`
   },
-  variaties: {
-    title: "Variaties V(n,k)",
-    html: `<h3>Definitie</h3>
-<p>Een <strong>variatie</strong> is een geordende selectie van <em>k</em> objecten uit <em>n</em>, <strong>zonder herhaling</strong>. Volgorde telt.</p>
-<pre><code>V(n,k) = n! / (n − k)!</code></pre>
-<h3>Verschil met permutatie</h3>
-<ul>
-  <li><strong>Variatie V(n,k)</strong>: k uit n kiezen, volgorde telt (k ≤ n)</li>
-  <li><strong>Permutatie P(n)</strong>: álle n objecten rangschikken = speciaal geval waarbij k = n</li>
-</ul>
-<h3>Voorbeeld</h3>
-<blockquote>Gouden, zilveren en bronzen medaille verdelen onder 8 atleten:<br>V(8,3) = 8!/(8−3)! = 8×7×6 = <strong>336</strong></blockquote>`
-  },
-  permutaties: {
-    title: "Permutaties P(n)",
-    html: `<h3>Definitie</h3>
-<p>Een <strong>permutatie</strong> is een rangschikking van <em>alle n</em> objecten. Het is een speciaal geval van een variatie waarbij k = n.</p>
-<pre><code>P(n) = n!</code></pre>
-<h3>Met herhaling toegestaan</h3>
-<pre><code>nᵏ mogelijkheden (k posities, n soorten)</code></pre>
-<h3>Niet-onderscheidbare objecten</h3>
-<pre><code>n! / (n₁! × n₂! × … × nₖ!)</code></pre>
-<blockquote>BANAAN (B×1, A×3, N×2): 6!/(1!×3!×2!) = <strong>60</strong></blockquote>
-<blockquote>MISSISSIPPI (M×1, I×4, S×4, P×2): 11!/(1!×4!×4!×2!) = <strong>34.650</strong></blockquote>`
-  },
-  combinaties: {
-    title: "Combinaties C(n,k)",
-    html: `<h3>Definitie</h3>
-<p>Een <strong>combinatie</strong> is een ongeordende selectie: je kiest <em>k</em> objecten uit <em>n</em>, volgorde maakt niet uit.</p>
-<pre><code>C(n,k) = n! / (k! × (n − k)!)</code></pre>
-<h3>Handige eigenschappen</h3>
-<ul>
-  <li><code>C(n,0) = 1</code></li>
-  <li><code>C(n,n) = 1</code></li>
-  <li><code>C(n,k) = C(n, n−k)</code> (symmetrie)</li>
-</ul>
-<h3>Voorbeeld</h3>
-<blockquote>Commissie van 3 uit 8 kandidaten:<br>C(8,3) = 8!/(3!×5!) = <strong>56</strong></blockquote>
-<blockquote>Lotto: 6 uit 45 kiezen:<br>C(45,6) = <strong>8.145.060</strong></blockquote>`
-  },
-  herhaling: {
-    title: "Combinaties met herhaling C_h(n,k)",
-    html: `<h3>Definitie</h3>
-<p>Je kiest <em>k</em> objecten uit <em>n</em> soorten, herhaling <strong>mag</strong>, volgorde telt niet.</p>
-<pre><code>C_h(n,k) = C(n + k − 1, k)</code></pre>
-<h3>Voorbeeld</h3>
-<blockquote>IJssalon: 5 smaken, 3 bolletjes kiezen (smaken mogen herhalen, hoorntje = geen volgorde):<br>C_h(5,3) = C(7,3) = <strong>35</strong> mogelijkheden</blockquote>
-<h3>Vergelijking</h3>
-<table>
-<tr><th>Type</th><th>Formule</th><th>Voorbeeld (5 smaken, 3 bolletjes)</th></tr>
-<tr><td>Zonder herhaling</td><td>C(5,3)</td><td>10</td></tr>
-<tr><td>Met herhaling</td><td>C_h(5,3) = C(7,3)</td><td>35</td></tr>
-</table>`
-  },
-  pascal: {
-    title: "Driehoek van Pascal",
-    html: `<h3>De driehoek</h3>
-<pre><code>        1
-       1 1
-      1 2 1
-     1 3 3 1
-    1 4 6 4 1
-   1 5 10 10 5 1</code></pre>
-<p>Rij <em>n</em> geeft de waarden C(n,0) t/m C(n,n). Elke waarde is de som van de twee waarden erboven.</p>
-<h3>Pascal's regel</h3>
-<pre><code>C(n,k) = C(n−1, k−1) + C(n−1, k)</code></pre>
-<h3>Toepassingen</h3>
-<ul>
-  <li>Snel C(n,k) opzoeken zonder formule</li>
-  <li>Coëfficiënten van (a+b)ⁿ</li>
-  <li>Som van rij n = 2ⁿ</li>
-</ul>`
-  },
-  voorwaardelijk: {
-    title: "Voorwaardelijke kans",
-    html: `<h3>Definitie</h3>
-<p>De <strong>voorwaardelijke kans</strong> P(A|B) is de kans op A, <em>gegeven dat</em> B al is opgetreden.</p>
-<pre><code>P(A | B) = P(A ∩ B) / P(B)    [P(B) > 0]</code></pre>
-<h3>Voorbeeld</h3>
-<blockquote>Klas: 18 meisjes, 12 jongens. 6 meisjes dragen bril.<br><br>
-P(bril | meisje) = (6/30) / (18/30) = 6/18 = <strong>1/3</strong></blockquote>
-<h3>Vermenigvuldigingsregel</h3>
-<pre><code>P(A ∩ B) = P(A | B) × P(B)</code></pre>`
+  "voorwaardelijk": {
+    title: `Voorwaardelijke kans`,
+    html: `<p>P(A|B) = P(A∩B)/P(B): kans op A gegeven dat B al is opgetreden. We verkleinen de uitkomstenruimte naar alleen de uitkomsten waar B optreedt. Vermenigvuldigingsregel: P(A∩B) = P(A|B)×P(B). Voorbeeld: klas 18 meisjes/12 jongens, 6 meisjes met bril → P(bril|meisje) = 6/18 = 1/3.</p>`
   },
   "formule-vk": {
-    title: "P(A|B) = P(A∩B)/P(B)",
-    html: `<h3>De formule stap voor stap</h3>
-<pre><code>P(A | B) = P(A ∩ B) / P(B)</code></pre>
-<ul>
-  <li><strong>P(A|B)</strong> — kans op A, wetende dat B is opgetreden</li>
-  <li><strong>P(A∩B)</strong> — kans dat A én B allebei optreden</li>
-  <li><strong>P(B)</strong> — kans op B (moet > 0 zijn)</li>
-</ul>
-<h3>Intuïtie</h3>
-<p>We "verkleinen" de uitkomstenruimte naar alleen de uitkomsten waar B optreedt, en kijken dan hoeveel van die uitkomsten ook A zijn.</p>
-<h3>Voorbeeld</h3>
-<blockquote>Twee dobbelstenen. Gegeven dat de som even is, wat is de kans dat beide dobbelstenen even zijn?<br><br>
-P(beide even ∩ som even) = P(beide even) = 9/36<br>
-P(som even) = 18/36<br>
-P(beide even | som even) = (9/36)/(18/36) = <strong>1/2</strong></blockquote>`
+    title: `P(A|B) = P(A∩B)/P(B)`,
+    html: `<p>P(A|B) = P(A∩B)/P(B). Termen: P(A|B) = wat we willen weten</p><ul><li>P(A∩B) = kans dat A én B allebei optreden</li><li>P(B) = kans op B (moet >0 zijn). Vermenigvuldigingsregel (omgekeerd): P(A∩B) = P(A|B)×P(B).</li></ul>`
   },
-  onafhankelijk: {
-    title: "Onafhankelijkheid",
-    html: `<h3>Definitie</h3>
-<p>A en B zijn <strong>onafhankelijk</strong> als het optreden van B geen invloed heeft op de kans van A:</p>
-<pre><code>P(A | B) = P(A)</code></pre>
-<p>Dit leidt tot de vermenigvuldigingsregel:</p>
-<pre><code>P(A ∩ B) = P(A) × P(B)</code></pre>
-<h3>Voorbeeld onafhankelijk</h3>
-<blockquote>Munt twee keer opgooien:<br>P(kop, dan munt) = 1/2 × 1/2 = 1/4</blockquote>
-<h3>Afhankelijke gebeurtenissen</h3>
-<p>Als de eerste uitkomst de tweede beïnvloedt:</p>
-<blockquote>Twee azen trekken zonder terugleggen:<br>
-P(1e aas) = 4/52<br>
-P(2e aas | 1e aas) = 3/51<br>
-P(beide azen) = 4/52 × 3/51 = <strong>1/221</strong></blockquote>`
+  "onafhankelijk": {
+    title: `Onafhankelijkheid`,
+    html: `<p>Onafhankelijk: P(A|B)=P(A) → P(A∩B)=P(A)×P(B). Afhankelijk: eerste uitkomst beïnvloedt de tweede. Onafhankelijk voorbeeld: munt 2×: P(K,M)=1/2×1/2=1/4. Afhankelijk voorbeeld: 2 azen zonder terugleggen: P=4/52×3/51=1/221.</p>`
   },
   "totale-kans": {
-    title: "Wet van de totale kans",
-    html: `<h3>De wet</h3>
-<p>Als B₁, B₂, …, Bₙ een partitie vormen van Ω (mutueel uitsluitend en uitputtend), dan:</p>
-<pre><code>P(A) = P(A|B₁)·P(B₁) + P(A|B₂)·P(B₂) + … + P(A|Bₙ)·P(Bₙ)</code></pre>
-<h3>Voorbeeld</h3>
-<blockquote>Fabriek: machine X (60%) en machine Y (40%).<br>
-X produceert 2% defect; Y produceert 5% defect.<br><br>
-P(defect) = 0,02 × 0,60 + 0,05 × 0,40<br>
-= 0,012 + 0,020 = <strong>0,032 (3,2%)</strong></blockquote>
-<h3>Gebruik</h3>
-<p>Gebruik deze wet als je de totale kans wil berekenen, maar alleen deelkansen kent per scenario. Combineer daarna met Bayes om de omgekeerde vraag te beantwoorden.</p>`
+    title: `Wet van de totale kans`,
+    html: `<p>P(A) = Σ P(A|Bᵢ)·P(Bᵢ): splits de uitkomstenruimte in deelscenario's B₁,B₂,… (mutueel uitsluitend en uitputtend) en tel de gewogen deelkansen op. Voorbeeld: machine X (60%, 2% defect) + Y (40%, 5% defect) → P(defect)=0,02×0,60+0,05×0,40=3,2%.</p>`
   },
-  bayes: {
-    title: "Stelling van Bayes",
-    html: `<h3>De formule</h3>
-<pre><code>P(B | A) = P(A | B) × P(B) / P(A)</code></pre>
-<p>Bayes draait de voorwaardelijke kans om: als we P(A|B) kennen, berekenen we P(B|A).</p>
-<h3>Medisch voorbeeld</h3>
-<blockquote>Ziekte treft 1%: P(ziek) = 0,01<br>
-Test positief als ziek: P(+|ziek) = 0,99<br>
-Vals-positief: P(+|gezond) = 0,05<br><br>
-P(+) = 0,99×0,01 + 0,05×0,99 = 0,0594<br>
-P(ziek|+) = (0,99×0,01)/0,0594 ≈ <strong>16,7%</strong></blockquote>
-<p>Ondanks positieve test slechts 16,7% kans op ziekte — omdat de ziekte zeldzaam is!</p>
-<h3>Toepassingen</h3>
-<p>Spam-filters, medische diagnose, rechtszaken, AI.</p>`
+  "bayes": {
+    title: `Stelling van Bayes`,
+    html: `<p>P(B|A) = P(A|B)×P(B)/P(A): draait de voorwaardelijke kans om. Stappen: (1) bepaal prior P(B) (2) bepaal likelihood P(A|B) (3) bereken P(A) via wet totale kans (4) vul in. Medisch voorbeeld: ziekte 1%, test 99% sensitief, 5% vals-positief → P(ziek|+)≈16,7% (basisfrequentie is cruciaal!).</p>`
   },
   "formule-bayes": {
-    title: "Formule van Bayes",
-    html: `<h3>De formule</h3>
-<pre><code>P(B | A) = P(A | B) × P(B) / P(A)</code></pre>
-<h3>Elke term verklaard</h3>
-<ul>
-  <li><strong>P(B|A)</strong> — wat we willen weten (posterior)</li>
-  <li><strong>P(A|B)</strong> — wat we al weten (likelihood)</li>
-  <li><strong>P(B)</strong> — basisfrequentie (prior)</li>
-  <li><strong>P(A)</strong> — totale kans op A (via wet totale kans)</li>
-</ul>
-<h3>Stap-voor-stap berekening</h3>
-<blockquote>
-1. Bepaal P(B) en P(Bᶜ)<br>
-2. Bepaal P(A|B) en P(A|Bᶜ)<br>
-3. Bereken P(A) = P(A|B)·P(B) + P(A|Bᶜ)·P(Bᶜ)<br>
-4. Vul in: P(B|A) = P(A|B)·P(B) / P(A)
-</blockquote>`
+    title: `Formule van Bayes`,
+    html: `<p>P(B|A) = P(A|B)×P(B)/P(A). Termen: P(B|A)=posterior (wat we willen)</p><ul><li>P(A|B)=likelihood (wat we weten)</li><li>P(B)=prior (basisfrequentie)</li><li>P(A)=totale kans (via wet totale kans). Bereken P(A) altijd eerst via: P(A)=P(A|B)·P(B)+P(A|Bᶜ)·P(Bᶜ).</li></ul>`
   },
-  medisch: {
-    title: "Medische test — voorbeeld",
-    html: `<h3>Het probleem</h3>
-<ul>
-  <li>Ziekte treft <strong>1%</strong> van de bevolking: P(ziek) = 0,01</li>
-  <li>Test positief als ziek: P(+|ziek) = 0,99 (sensitiviteit)</li>
-  <li>Vals-positief als gezond: P(+|gezond) = 0,05</li>
-</ul>
-<h3>Vraag</h3>
-<p>Wat is de kans dat iemand écht ziek is, gegeven een positieve test?</p>
-<h3>Oplossing</h3>
-<pre><code>P(+) = 0,99 × 0,01 + 0,05 × 0,99
-     = 0,0099 + 0,0495 = 0,0594
-
-P(ziek|+) = (0,99 × 0,01) / 0,0594
-           ≈ 0,167 = 16,7%</code></pre>
-<h3>Conclusie</h3>
-<p>Ondanks een positieve test is de kans op ziekte maar <strong>16,7%</strong> — omdat de ziekte zeldzaam is. De basisfrequentie (prior) is cruciaal!</p>`
+  "medisch": {
+    title: `Medische test — voorbeeld`,
+    html: `<p>Ziekte 1%: P(ziek)=0,01</p><ul><li>Test positief als ziek: P(+|ziek)=0,99</li><li>Vals-positief: P(+|gezond)=0,05. Berekening: P(+)=0,99×0,01+0,05×0,99=0,0594. P(ziek|+)=0,0099/0,0594≈16,7%. Conclusie: positieve test ≠ zeker ziek — de zeldzaamheid van de ziekte domineert.</li></ul>`
   },
-  toepassingen: {
-    title: "Toepassingen van Bayes",
-    html: `<h3>Spam-filters</h3>
-<p>P(spam | woord "gratis") wordt berekend op basis van hoe vaak "gratis" in spam vs. normale mail voorkomt. De filter leert en past de kansen aan.</p>
-<h3>Medische diagnose</h3>
-<p>Artsen combineren testresultaten met basisfrequentie van een ziekte om de werkelijke kans op ziekte te schatten — ook al zijn tests niet 100% betrouwbaar.</p>
-<h3>Rechtbank</h3>
-<p>DNA-bewijs heeft een bepaalde kans op een match bij onschuldigen. Bayes voorkomt de <em>prosecutor's fallacy</em>: P(match|onschuldig) ≠ P(onschuldig|match).</p>
-<h3>Kunstmatige intelligentie</h3>
-<p>Bayesiaanse netwerken modelleren onzekerheid in AI-systemen. Veel machine learning-algoritmes zijn in essentie Bayesiaans van opzet.</p>`
-  }
+  "toepassingen": {
+    title: `Toepassingen van Bayes`,
+    html: `<p>Bayes in de praktijk: spam-filters (P(spam|woord) berekend op basis van trainingsdata)</p><ul><li>medische diagnose (testresultaat + basisfrequentie)</li><li>rechtbank (prosecutor's fallacy vermijden: P(match|onschuldig)≠P(onschuldig|match))</li><li>AI en machine learning (Bayesiaanse netwerken modelleren onzekerheid).</li></ul>`
+  },
+  "verjaardag": {
+    title: `Verjaardagsprobleem`,
+    html: `<p>P(minstens 1 match) = 1 − P(niemand zelfde verjaardag). P(geen match) = 365/365 × 364/365 × … × (365−n+1)/365. Verrassend: bij slechts 23 personen is de kans al >50% — omdat er C(23,2)=253 mogelijke paren zijn. Bij 50 personen: 97%.</p>`
+  },
+  "binomiaal": {
+    title: `Binomiale verdeling`,
+    html: `<p>P(k) = C(n,k)×pᵏ×(1−p)ⁿ⁻ᵏ: kans op precies k successen bij n onafhankelijke pogingen met kans p. Componenten: C(n,k)=aantal manieren</p><ul><li>pᵏ=kans op k successen</li><li>(1−p)ⁿ⁻ᵏ=kans op mislukkingen. Voorbeeld: 10 munten, 7× kruis: C(10,7)×(0,5)¹⁰=120/1024≈11,7%.</li></ul>`
+  },
 };
 
 const panel = document.getElementById('panel');
